@@ -9,6 +9,7 @@ TagManager:
   - Killer
   - Treasure
   - Enemy
+  - Pushable
   layers:
   - Default
   - TransparentFX

@@ -24,9 +24,9 @@ public class PlayerController : MonoBehaviour
     public bool visualize;
 
     [Header("Physics")]
-    public float standartDamp = 0f;   // Oyuncu topla ayný yönde hareket ederkenki sürtünme
-    public float turnDamp = 3f;     // Oyuncu topla ters yönde hareket ederkenki sürtünme (Sadece yerdeyken)
-    public float groundFreeDamp = 2f;     // Oyuncu bir tuþa basmadýðýnda olan sürtünme
+    public float standartDamp = 0f;   // Oyuncu topla aynï¿½ yï¿½nde hareket ederkenki sï¿½rtï¿½nme
+    public float turnDamp = 3f;     // Oyuncu topla ters yï¿½nde hareket ederkenki sï¿½rtï¿½nme (Sadece yerdeyken)
+    public float groundFreeDamp = 2f;     // Oyuncu bir tuï¿½a basmadï¿½ï¿½ï¿½nda olan sï¿½rtï¿½nme
     public float torqueForce = 0f;
     public float maxSpeed = 8f;
 
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (isGrounded && Mathf.Sign(rb.linearVelocity.x) != Mathf.Sign(moveInput)) // Ters yönde hareket
+                if (isGrounded && Mathf.Sign(rb.linearVelocity.x) != Mathf.Sign(moveInput)) // Ters yï¿½nde hareket
                 {
                     rb.linearDamping = turnDamp;
                 }
