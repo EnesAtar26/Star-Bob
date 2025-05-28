@@ -8,6 +8,7 @@ TagManager:
   - Pickable
   - Killer
   - Treasure
+  - Enemy
   - Pushable
   layers:
   - Default
