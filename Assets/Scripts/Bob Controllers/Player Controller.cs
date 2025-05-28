@@ -202,6 +202,25 @@ public class PlayerController : MonoBehaviour
                 Destroy(gameObject);
                 break;
 
+            case "Enemy":
+                Vector2 contactPoint = collision.ClosestPoint(transform.position);
+                float playerY = transform.position.y;
+                float enemyY = collision.transform.position.y;
+
+               
+                if (playerY > enemyY + 0.5f)
+                {
+                    collision.GetComponent<Enemy>().Die();
+                    GetComponent<Rigidbody2D>().linearVelocity = new Vector2(GetComponent<Rigidbody2D>().linearVelocity.x, 10f);
+                }
+                else
+                {
+                    Destroy(gameObject); 
+                }
+                break;
+
+
+
             case "Pusher":
                 var pusher = collision.GetComponent<Pusher>();
                 Vector2 v = rb.linearVelocity;

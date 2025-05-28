@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dikkat_sag_0: 7824290935547195355
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
