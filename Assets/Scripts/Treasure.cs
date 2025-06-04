@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Treasure : MonoBehaviour
 {
@@ -7,10 +8,14 @@ public class Treasure : MonoBehaviour
     public float ExpireTime = 0f;
     public SpriteRenderer Renderer;
 
-    public GameObject IceCream;
-
+    MainManager manager;
     bool empty = false;
     Coroutine expire, tick;
+
+    private void Start()
+    {
+        manager = FindAnyObjectByType<MainManager>();
+    }
 
     public bool TickTreasure()
     {
@@ -37,7 +42,7 @@ public class Treasure : MonoBehaviour
         float timer = 0f;
         var nPos = Renderer.transform.position;
         var dPos = Renderer.transform.position + Vector3.down * 0.2f;
-        var uPos = Renderer.transform.position + Vector3.up * 0.8f;
+        var uPos = Renderer.transform.position + Vector3.up * 0.6f;
 
         // Goes Up
         while (timer < 0.1f)
@@ -46,11 +51,17 @@ public class Treasure : MonoBehaviour
             timer += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-
+        
         Renderer.transform.position = uPos;
 
         CheckExpire();
-        SummonTreasure();
+
+        switch (Type)
+        {
+            case PickableType.ConeIceCream:
+                SummonTreasure();
+                break;
+        }
 
         // Goes Down
         timer = 0f;
@@ -63,7 +74,6 @@ public class Treasure : MonoBehaviour
 
         Renderer.transform.position = dPos;
 
-
         // Goes Normal
         timer = 0f;
         while (timer < 0.04f)
@@ -74,6 +84,15 @@ public class Treasure : MonoBehaviour
         }
 
         Renderer.transform.position = nPos;
+
+        switch (Type)
+        {
+            case PickableType.Donut:
+            case PickableType.Cupcake:
+            case PickableType.BowlIceCream:
+                SummonTreasure();
+                break;
+        }
 
         tick = null;
     }
@@ -94,7 +113,27 @@ public class Treasure : MonoBehaviour
         switch (Type)
         {
             case PickableType.ConeIceCream:
+                var cic = Instantiate(manager.ConeIceCream, transform);
+                cic.transform.localPosition = Renderer.transform.localPosition; cic.transform.localRotation = Quaternion.identity;
+                cic.AddComponent<TreasureElement>().Initilize(PickableType.ConeIceCream);
+                break;
 
+            case PickableType.Donut:
+                var d = Instantiate(manager.Donut, transform);
+                d.transform.localPosition = Renderer.transform.localPosition; d.transform.localRotation = Quaternion.identity;
+                d.AddComponent<TreasureElement>().Initilize(PickableType.Donut);
+                break;
+
+            case PickableType.Cupcake:
+                var c = Instantiate(manager.Cupcake, transform);
+                c.transform.localPosition = Renderer.transform.localPosition; c.transform.localRotation = Quaternion.identity;
+                c.AddComponent<TreasureElement>().Initilize(PickableType.Cupcake);
+                break;
+
+            case PickableType.BowlIceCream:
+                var boi = Instantiate(manager.BowlIceCream, transform);
+                boi.transform.localPosition = Renderer.transform.localPosition; boi.transform.localRotation = Quaternion.identity;
+                boi.AddComponent<TreasureElement>().Initilize(PickableType.BowlIceCream);
                 break;
         }
     }

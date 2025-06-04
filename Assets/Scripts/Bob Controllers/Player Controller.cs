@@ -1,16 +1,27 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Interfaces;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
+
+public enum BobImprovements
+{
+    None,
+    Armor,
+    Pizza,
+    IceCream
+}
 
 public class PlayerController : MonoBehaviour
 {
     [Header("States")]
+    public BobImprovements Improvement;
     public List<Pickable> Inventory;
     public int IceCream = 0;
     public bool isDead = false;
+    public bool isInvicible = false;
+    public bool isDeadly = false;
+    public float invicibleTime = 0f;
+    public int projectileCount = 0;
     [Space]
 
     [Header("Movement Settings")]
@@ -33,9 +44,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
+    
+    private PlayerMeshController meshController;
+    private MainManager mainManager;
+    private GameObject invicibleEffect;
 
     private void Awake()
     {
+        mainManager = FindAnyObjectByType<MainManager>();
+        meshController = FindAnyObjectByType<PlayerMeshController>();
+
         if (GlobalClass.Inventory == null)
             GlobalClass.Inventory = Inventory;
         else
@@ -83,10 +101,35 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = false; // Allow ball rotation
     }
 
+    void HandleProjectiles()
+    {
+        if (projectileCount > 1)
+            return;
+
+        var g = Instantiate(mainManager.Projectile_IceCream);
+        var p = transform.position;
+        p.x += 0.2f;
+        p.y += 0.2f;
+        g.transform.position = p;
+        projectileCount++;
+
+        var prj = g.GetComponent<Projectile>();
+        if (rb.linearVelocityX < 0f)
+            prj.moveSpeed *= -1f;
+    }
+
     void HandleInput()
     {
         // Get horizontal input
         moveInput = Input.GetAxis("Horizontal");
+
+        if (Improvement == BobImprovements.IceCream ||Improvement == BobImprovements.Pizza)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                HandleProjectiles();
+            }
+        }
         
         //Restart
         if (Input.GetKey(KeyCode.R))
@@ -95,8 +138,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void CheckInvicible()
+    {
+        if (invicibleTime > 0f)
+        {
+            isInvicible = true;
+            invicibleTime -= Time.deltaTime;
+        }
+        else
+        {
+            if (invicibleEffect != null)
+            {
+                Destroy(invicibleEffect);
+                invicibleEffect = null;
+            }
+            isInvicible = false;
+            isDeadly = false;
+        }
+    }
+
     void Update()
     {
+        CheckInvicible();
         HandleInput();
 
         // Check for ground using raycast
@@ -148,6 +211,50 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void BobDeimprove()
+    {
+        switch (Improvement)
+        {
+            case BobImprovements.None:
+                break;
+
+            case BobImprovements.Armor:
+                invicibleTime = 2f;
+                Improvement = BobImprovements.None;
+                var bh = Instantiate(mainManager.BrokenHeart);
+                bh.transform.position = transform.position;
+                break;
+
+            default:
+                invicibleTime = 2f;
+                Improvement = BobImprovements.Armor;
+                var bh2 = Instantiate(mainManager.BrokenHeart);
+                bh2.transform.position = transform.position;
+                break;
+        }
+        meshController.UpdatePlayerMeshImprovement();
+    }
+
+    void BobImprove(BobImprovements i)
+    {
+        if (Improvement == BobImprovements.None) // Eðer Bob'un herhangi bir improvement'i yoksa sadece armor alabilir
+            i = BobImprovements.Armor;
+
+        switch (i)
+        {
+            case BobImprovements.Armor:
+                Instantiate(mainManager.Poof, transform);
+                break;
+
+            case BobImprovements.IceCream:
+                Instantiate(mainManager.Poof, transform);
+                break;
+        }
+
+        Improvement = i;
+        meshController.UpdatePlayerMeshImprovement();
+    }
+
     void OnDrawGizmosSelected()
     {
         if (!visualize)
@@ -177,6 +284,21 @@ public class PlayerController : MonoBehaviour
                 IceCream++;
                 break;
 
+            case PickableType.Donut:
+                BobImprove(BobImprovements.Armor);
+                break;
+
+            case PickableType.Cupcake:
+                invicibleTime = 10f;
+                isDeadly = true;
+                if (invicibleEffect == null)
+                    invicibleEffect = Instantiate(mainManager.Invicible, transform);
+                break;
+
+            case PickableType.BowlIceCream:
+                BobImprove(BobImprovements.IceCream);
+                break;
+
             case PickableType.Other:
                 Inventory.Add(item.Data());
                 break;
@@ -194,32 +316,76 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void EnemyCollision(Collider2D collision)
+    {
+        if (isDeadly)
+        {
+            collision.GetComponent<Enemy>().Die();
+            var dirX = transform.position.x - collision.transform.position.x;
+            float p = dirX < 0 ? 8f : -8f;
+            rb.linearVelocity = new Vector2(rb.linearVelocityX + p, rb.linearVelocityY);
+            return;
+        }
+
+        Vector2 contactPoint = collision.ClosestPoint(transform.position);
+        float playerY = transform.position.y;
+        float enemyY = collision.transform.position.y;
+
+
+        if (playerY > enemyY + 0.5f)
+        {
+            collision.GetComponent<Enemy>().Die();
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 5f);
+        }
+        else
+        {
+            if (isInvicible)
+                return;
+            else if (Improvement != BobImprovements.None)
+            {
+                BobHit(collision.transform);
+                BobDeimprove();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    void BobHit(Transform t)
+    {
+        Vector2 dir = Vector2.zero;
+        dir.x = transform.position.x < t.position.x ? -10f : 10f;
+        dir.y = 7f;
+
+        rb.linearVelocity = dir;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.tag)
         {
             case "Killer":
+                if (!isInvicible)
+                {
+                    if (Improvement != BobImprovements.None)
+                    {
+                        BobHit(collision.transform);
+                        BobDeimprove();
+                    }
+                    else
+                        Destroy(gameObject);
+                }
+                break;
+
+            case "Force Killer":
                 Destroy(gameObject);
                 break;
 
             case "Enemy":
-                Vector2 contactPoint = collision.ClosestPoint(transform.position);
-                float playerY = transform.position.y;
-                float enemyY = collision.transform.position.y;
-
-               
-                if (playerY > enemyY + 0.5f)
-                {
-                    collision.GetComponent<Enemy>().Die();
-                    GetComponent<Rigidbody2D>().linearVelocity = new Vector2(GetComponent<Rigidbody2D>().linearVelocity.x, 10f);
-                }
-                else
-                {
-                    Destroy(gameObject); 
-                }
+                EnemyCollision(collision);
                 break;
-
-
 
             case "Pusher":
                 var pusher = collision.GetComponent<Pusher>();
