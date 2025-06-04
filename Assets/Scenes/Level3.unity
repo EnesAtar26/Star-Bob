@@ -35329,22 +35329,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8540527315424143869, guid: b1d2ccd3084b92e4f99180bb77215c95, type: 3}
-      propertyPath: Poof
-      value: 
-      objectReference: {fileID: 8844653109988328772, guid: 8b11b2fb42f23c2429b1274ac6a1ce14, type: 3}
-    - target: {fileID: 8540527315424143869, guid: b1d2ccd3084b92e4f99180bb77215c95, type: 3}
-      propertyPath: BrokenHeart
-      value: 
-      objectReference: {fileID: 3838376139478134405, guid: 7877ae1db89e8f14eb749f22b4ceea68, type: 3}
-    - target: {fileID: 8540527315424143869, guid: b1d2ccd3084b92e4f99180bb77215c95, type: 3}
-      propertyPath: Projectile_Destroy
-      value: 
-      objectReference: {fileID: 1371258623037138484, guid: a2e39a9c6c409f249843367d8f403a5e, type: 3}
-    - target: {fileID: 8540527315424143869, guid: b1d2ccd3084b92e4f99180bb77215c95, type: 3}
-      propertyPath: Projectile_IceCream
-      value: 
-      objectReference: {fileID: 6375804163142026992, guid: 742d3c1bb853be54ab221adfcd63aafd, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

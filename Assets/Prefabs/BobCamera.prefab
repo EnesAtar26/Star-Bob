@@ -255,7 +255,12 @@ MonoBehaviour:
   Donut: {fileID: 830451930820448189, guid: dd8b6eebce8d2dc4e90e3c6c4a4a4874, type: 3}
   BowlIceCream: {fileID: 6478390761870314442, guid: 3f60818cd700f2d42812eaa9b3f0d64b, type: 3}
   Cupcake: {fileID: 1750611432074399109, guid: a7a2125e317643c4abf2a1a80e9b68bf, type: 3}
+  Projectile_IceCream: {fileID: 6375804163142026992, guid: 742d3c1bb853be54ab221adfcd63aafd, type: 3}
+  Projectile_Pizza: {fileID: 0}
+  Projectile_Destroy: {fileID: 1371258623037138484, guid: a2e39a9c6c409f249843367d8f403a5e, type: 3}
   Invicible: {fileID: 9024793302263544347, guid: 5e6bad9e8c55c1341835e9015312605b, type: 3}
+  Poof: {fileID: 8844653109988328772, guid: 8b11b2fb42f23c2429b1274ac6a1ce14, type: 3}
+  BrokenHeart: {fileID: 3838376139478134405, guid: 7877ae1db89e8f14eb749f22b4ceea68, type: 3}
   TreausureFlipLayers:
     serializedVersion: 2
     m_Bits: 8
