@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7712404116364948888}
   - component: {fileID: -3672712079763127425}
   m_Layer: 0
-  m_Name: FireBall 1
+  m_Name: FireBall
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ba4c6ba22d7dd4190532e7c2ed6af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
 --- !u!50 &-7712404116364948888
 Rigidbody2D:
   serializedVersion: 5

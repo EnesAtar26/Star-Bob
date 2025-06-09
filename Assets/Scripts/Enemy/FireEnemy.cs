@@ -58,10 +58,10 @@ public class FireEnemy : MonoBehaviour
     }
    
 
-    //public void TurnIntoBox()
-    //{
-      //  Instantiate(boxPrefab, transform.position, Quaternion.identity);
-       // Destroy(gameObject);
-    //}
+    public void TurnIntoBox()
+    {
+       Instantiate(boxPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
 
 }

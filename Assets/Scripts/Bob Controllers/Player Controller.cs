@@ -10,6 +10,7 @@ public enum BobImprovements
     Armor,
     Pizza,
     IceCream,
+    WaterDrop
    
 }
 
@@ -231,23 +232,21 @@ public class PlayerController : MonoBehaviour
                 Vector2 contactPoint = collision.ClosestPoint(transform.position);
                 float playerY = transform.position.y;
                 float enemyY = collision.transform.position.y;
-               
 
                 if (playerY > enemyY + 0.5f)
                 {
                     if (hasWaterPower)
                     {
-                        //collision.GetComponent<Enemy>().TurnIntoBox();
-                        break;
+                        collision.GetComponent<FireEnemy>().TurnIntoBox();
+                        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(GetComponent<Rigidbody2D>().linearVelocity.x, 10f);
                     }
                     else
-                      collision.GetComponent<Enemy>().Die();
-                      GetComponent<Rigidbody2D>().linearVelocity = new Vector2(GetComponent<Rigidbody2D>().linearVelocity.x, 10f);
+                    {
+                        // Su gücü yoksa, oyuncu ölür
+                        Destroy(gameObject);
+                    }
                 }
-                else
-                {
-                    Destroy(gameObject); 
-                }
+
                 break;
 
 
