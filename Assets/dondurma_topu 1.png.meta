@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: a23d3ee173a82544097e78cf4b5550b2
+guid: b78cf172ce8be7446948e95acbad1c3c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7751207366561750650
-    second: ChatGPT Image 5 Haz 2025 22_20_58_0
-  - first:
-      213: -5428426195248075556
-    second: ChatGPT Image 5 Haz 2025 22_20_58_1
+      213: 2205657910488471164
+    second: dondurma_topu 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChatGPT Image 5 Haz 2025 22_20_58_0
+      name: dondurma_topu 1_0
       rect:
         serializedVersion: 2
-        x: 62
-        y: 376
-        width: 66
-        height: 36
+        x: 0
+        y: 34
+        width: 302
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a7edd404802d19b60800000000000000
-      internalID: 7751207366561750650
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ChatGPT Image 5 Haz 2025 22_20_58_1
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 142
-        width: 912
-        height: 682
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cdc20dee22b5aa4b0800000000000000
-      internalID: -5428426195248075556
+      spriteID: c7612bafe221c9e10800000000000000
+      internalID: 2205657910488471164
       vertices: []
       indices: 
       edges: []
@@ -163,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -173,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dondurnaDusman 1_0: -7534678581298547063
+      dondurma_topu 1_0: 2205657910488471164
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
