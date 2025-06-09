@@ -1,90 +1,57 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyThrow : MonoBehaviour
 {
+    public Transform rightArm;
     public GameObject iceCreamPrefab;
-    public Transform player;
-    public Transform firePoint; // AtÄ±ÅŸ noktasÄ±
-    public float attackRange = 10f;
-    public float cooldownTime = 7f;
-    public float baseForce = 5f;
-
-    private bool isAttacking = false;
+    public Transform throwPoint;
+    public Transform player; // Oyuncuyu buraya atayacaðýz
+    public float throwAngle = -45f;
+    public float fireRange = 5f; // Kaç birim yakýnlýkta fýrlatsýn?
+    public float fireCooldown = 2f; // 2 saniyede bir fýrlatsýn
+    private float lastFireTime;
 
     void Update()
     {
-        FlipTowardsPlayer();
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (distance <= attackRange && !isAttacking)
-        {
-            StartCoroutine(FireIceCreams());
-        }
-    }
-
-    IEnumerator FireIceCreams()
-    {
-        isAttacking = true;
-
-        for (int i = 1; i <= 3; i++)
-        {
-            FireSingleIceCream(i);
-        }
-
-        yield return new WaitForSeconds(cooldownTime);
-        isAttacking = false;
-    }
-
-    void FireSingleIceCream(int multiplier)
-    {
-        Vector2 direction = (player.position - transform.position).normalized;
-        direction.y = 0f; // sadece yatay yÃ¶n
-        direction = direction.normalized;
-
-        float force = baseForce * multiplier;
-
-        GameObject iceCream = Instantiate(iceCreamPrefab, firePoint.position, Quaternion.identity);
-
-        // YÃ¶n belirleme (saÄŸda mÄ±, solda mÄ±)
-        bool isPlayerOnRight = player.position.x > transform.position.x;
-
-        // Sprite'Ä±n yÃ¶nÃ¼nÃ¼ Ã§evir (Ã¶lÃ§ekleme ile)
-        Vector3 scale = iceCream.transform.localScale;
-        scale.x = Mathf.Abs(scale.x) * (isPlayerOnRight ? 1 : -1);
-        iceCream.transform.localScale = scale;
-
-        // Rigidbody ile kuvvet uygulama
-        Rigidbody2D rb = iceCream.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero; // Ã¶nceki hareketi sÄ±fÄ±rla
-            rb.AddForce(direction * force, ForceMode2D.Impulse);
-        }
-    }
-
-
-
-void FlipTowardsPlayer()
-    {
         if (player == null) return;
 
-        Vector3 scale = transform.localScale;
+        float distance = Vector2.Distance(transform.position, player.position);
 
-        bool isPlayerOnLeft = player.position.x < transform.position.x;
-
-        // Sprite saÄŸa bakÄ±yorsa scale.x pozitif olmalÄ±
-        if (isPlayerOnLeft)
+        if (distance <= fireRange && Time.time >= lastFireTime + fireCooldown)
         {
-            scale.x = -Mathf.Abs(scale.x); // sola bak
+            FireIceCream();
+            lastFireTime = Time.time;
         }
-        else
+    }
+
+    public void FireIceCream()
+    {
+        rightArm.localRotation = Quaternion.Euler(0, 0, throwAngle);
+
+        // Dondurmayý instantiate et
+        GameObject iceCream = Instantiate(iceCreamPrefab, throwPoint.position, Quaternion.identity);
+
+        // Rigidbody2D bileþenini al
+        Rigidbody2D rb = iceCream.GetComponent<Rigidbody2D>();
+
+        if (rb != null)
         {
-            scale.x = Mathf.Abs(scale.x); // saÄŸa bak
+            // Dondurmanýn karaktere doðru yönünü hesapla
+            Vector2 direction = (player.position - throwPoint.position).normalized;
+
+            // Hýzýný ayarla (örnek hýz 10f)
+            float speed = 10f;
+            rb.linearVelocity = direction * speed;
         }
 
-        transform.localScale = scale;
+        StartCoroutine(ResetArm());
+    }
 
-       
-        
+
+    IEnumerator ResetArm()
+    {
+        yield return new WaitForSeconds(0.2f);
+        rightArm.localRotation = Quaternion.Euler(0, 0, 0);
     }
 }
