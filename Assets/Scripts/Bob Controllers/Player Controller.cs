@@ -246,6 +246,8 @@ public class PlayerController : MonoBehaviour
                         Destroy(gameObject);
                     }
                 }
+                else
+                   Destroy(gameObject);
 
                 break;
 
