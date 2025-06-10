@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04820e52aaf47849910c5a5b10f5ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Power: {x: 0, y: 16}
+  Power: {x: 0, y: 12}
   x: 0
   y: 1
 --- !u!1 &978264719519828572
