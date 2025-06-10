@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 public class PlayerMeshController : MonoBehaviour
 {
     public GameObject AliveParts, DeathParts;
+    public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart;
     public float rotationLimit = 5f;
 
     GameObject bob;
     Rigidbody2D bobRb;
+    PlayerController playerController;
 
     private void Awake()
     {
@@ -19,10 +21,47 @@ public class PlayerMeshController : MonoBehaviour
     {
         bob = GameObject.FindGameObjectWithTag("Player");
         bobRb = bob.GetComponent<Rigidbody2D>();
+        playerController = FindAnyObjectByType<PlayerController>();
+
+        UpdatePlayerMeshImprovement();
 
         foreach (SpriteRenderer s in DeathParts.GetComponentsInChildren<SpriteRenderer>())
         {
             s.enabled = false;
+        }
+    }
+
+    public void UpdatePlayerMeshImprovement()
+    {
+        switch (playerController.Improvement)
+        {
+            case BobImprovements.None:
+                NormalPart.SetActive(true);
+                ArmorPart.SetActive(false);
+                PizzaPart.SetActive(false);
+                IceCreamPart.SetActive(false);
+                break;
+
+            case BobImprovements.Armor:
+                NormalPart.SetActive(false);
+                ArmorPart.SetActive(true);
+                PizzaPart.SetActive(false);
+                IceCreamPart.SetActive(false);
+                break;
+
+            case BobImprovements.Pizza:
+                NormalPart.SetActive(false);
+                ArmorPart.SetActive(false);
+                PizzaPart.SetActive(true);
+                IceCreamPart.SetActive(false);
+                break;
+
+            case BobImprovements.IceCream:
+                NormalPart.SetActive(false);
+                ArmorPart.SetActive(false);
+                PizzaPart.SetActive(false);
+                IceCreamPart.SetActive(true);
+                break;
         }
     }
 

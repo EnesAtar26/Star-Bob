@@ -9,7 +9,9 @@ TagManager:
   - Killer
   - Treasure
   - Enemy
-  - Pushable
+  - Ignore
+  - FxTemporaire
+  - Force Killer
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - nonGround
   - 
   - 
   - 

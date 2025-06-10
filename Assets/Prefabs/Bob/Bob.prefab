@@ -60,7 +60,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!58 &8590754612981207756
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -109,9 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac7eafd8fce28c4cbe69b5368ef5d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Improvement: 0
   Inventory: []
   IceCream: 0
   isDead: 0
+  isInvicible: 0
+  invicibleTime: 0
   moveSpeed: 6
   jumpForce: 7
   allowAirControl: 1
@@ -125,3 +128,4 @@ MonoBehaviour:
   groundFreeDamp: 2
   torqueForce: 0
   maxSpeed: 10
+  PuffParticle: {fileID: 8844653109988328772, guid: 8b11b2fb42f23c2429b1274ac6a1ce14, type: 3}
