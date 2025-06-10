@@ -4,12 +4,24 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEditor.Progress;
+public enum BobImprovements
+{
+    None,
+    Armor,
+    Pizza,
+    IceCream,
+    WaterDrop
+   
+}
 
 public class PlayerController : MonoBehaviour
 {
     [Header("States")]
+    public BobImprovements Improvement;
     public List<Pickable> Inventory;
     public int IceCream = 0;
+    public bool hasWaterPower = false;
+    public Color poweredColor= Color.blue;
     public bool isDead = false;
     [Space]
 
@@ -33,9 +45,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
+    
+    
 
     private void Awake()
     {
+        
         if (GlobalClass.Inventory == null)
             GlobalClass.Inventory = Inventory;
         else
@@ -81,6 +96,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = false; // Allow ball rotation
+        
+
     }
 
     void HandleInput()
@@ -168,6 +185,11 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * groundCheckRadius);
     }
+    public void ActivateWaterPower()
+    {
+        hasWaterPower = true;
+        
+    }
 
     void Pickup(Pickable item)
     {
@@ -180,6 +202,10 @@ public class PlayerController : MonoBehaviour
             case PickableType.Other:
                 Inventory.Add(item.Data());
                 break;
+            case PickableType.WaterDrop:
+                ActivateWaterPower();
+                break;
+
         }
         Destroy(item.DestroyRoot);
     }
@@ -207,16 +233,22 @@ public class PlayerController : MonoBehaviour
                 float playerY = transform.position.y;
                 float enemyY = collision.transform.position.y;
 
-               
                 if (playerY > enemyY + 0.5f)
                 {
-                    collision.GetComponent<Enemy>().Die();
-                    GetComponent<Rigidbody2D>().linearVelocity = new Vector2(GetComponent<Rigidbody2D>().linearVelocity.x, 10f);
+                    if (hasWaterPower)
+                    {
+                        collision.GetComponent<FireEnemy>().TurnIntoBox();
+                        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(GetComponent<Rigidbody2D>().linearVelocity.x, 10f);
+                    }
+                    else
+                    {
+                        // Su gücü yoksa, oyuncu ölür
+                        Destroy(gameObject);
+                    }
                 }
                 else
-                {
-                    Destroy(gameObject); 
-                }
+                   Destroy(gameObject);
+
                 break;
 
 

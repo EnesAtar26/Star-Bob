@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 public class PlayerMeshController : MonoBehaviour
 {
     public GameObject AliveParts, DeathParts;
+    public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart;
     public float rotationLimit = 5f;
 
     GameObject bob;
     Rigidbody2D bobRb;
+    PlayerController playerController;
 
     private void Awake()
     {
@@ -19,12 +21,17 @@ public class PlayerMeshController : MonoBehaviour
     {
         bob = GameObject.FindGameObjectWithTag("Player");
         bobRb = bob.GetComponent<Rigidbody2D>();
+        playerController = FindAnyObjectByType<PlayerController>();
+
+       
 
         foreach (SpriteRenderer s in DeathParts.GetComponentsInChildren<SpriteRenderer>())
         {
             s.enabled = false;
         }
     }
+
+    
 
     bool deathPreapered = false;
     void Update()

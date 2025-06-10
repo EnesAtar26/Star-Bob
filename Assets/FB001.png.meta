@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c00f1816c51b9e2428d7dae34ff1b41d
+guid: ac1bce5df79b6ab429fad3227b504620
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -511089367441293170
-    second: "d\xFC\u015Fman_0"
+      213: -2917000182891882972
+    second: FB001_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "d\xFC\u015Fman_0"
+      name: FB001_0
       rect:
         serializedVersion: 2
-        x: 214
-        y: 0
-        width: 598
-        height: 539
+        x: 20
+        y: 8
+        width: 34
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e80ce2d9dee38e8f0800000000000000
-      internalID: -511089367441293170
+      spriteID: 426daf0e9cbb487d0800000000000000
+      internalID: -2917000182891882972
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "d\xFC\u015Fman_0": -511089367441293170
+      FB001_0: -2917000182891882972
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
