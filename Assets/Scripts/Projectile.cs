@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour
 
         if (collision.tag == "Enemy")
         {
-            collision.GetComponent<Enemy>().Die();
+            collision.GetComponent<Enemy2>().Die();
             DestroyProjectile();
         }
     }

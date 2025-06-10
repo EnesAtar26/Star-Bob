@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDeadly)
         {
-            collision.GetComponent<Enemy>().Die();
+            collision.GetComponent<Enemy2>().Die();
             var dirX = transform.position.x - collision.transform.position.x;
             float p = dirX < 0 ? 8f : -8f;
             rb.linearVelocity = new Vector2(rb.linearVelocityX + p, rb.linearVelocityY);
@@ -334,7 +334,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerY > enemyY + 0.5f)
         {
-            collision.GetComponent<Enemy>().Die();
+            collision.GetComponent<Enemy2>().Die();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 5f);
         }
         else
