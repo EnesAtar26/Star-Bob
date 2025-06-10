@@ -9,7 +9,7 @@ public class EnemyAttack : MonoBehaviour
     public float attackRange = 10f;
     public float cooldownTime = 7f;
     public float baseForce = 5f;
-
+    public float initialDelay = 1.5f;
     private bool isAttacking = false;
 
     void Update()
@@ -25,6 +25,7 @@ public class EnemyAttack : MonoBehaviour
     IEnumerator FireIceCreams()
     {
         isAttacking = true;
+        yield return new WaitForSeconds(initialDelay);
 
         for (int i = 1; i <= 3; i++)
         {
