@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public static class GlobalClass
 {
-    public static int CurrentLevel = 3;
+    public static int CurrentLevel = 1;
     public static int CurrentCheckPoint = 0;
 
     public static List<Pickable> Inventory;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy2 : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     
     public GameObject deathEffect;
