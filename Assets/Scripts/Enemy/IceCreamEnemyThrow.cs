@@ -30,11 +30,13 @@ public class EnemyAttack : MonoBehaviour
         for (int i = 1; i <= 3; i++)
         {
             FireSingleIceCream(i);
+            yield return new WaitForSeconds(1f); // her atış arasında 1 saniye bekle
         }
 
         yield return new WaitForSeconds(cooldownTime);
         isAttacking = false;
     }
+
 
     void FireSingleIceCream(int multiplier)
     {

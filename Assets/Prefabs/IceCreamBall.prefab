@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -3065857287672590177}
   - component: {fileID: -8188301808220991726}
   - component: {fileID: -6551739976167526125}
+  - component: {fileID: 26228906359906063}
   m_Layer: 0
   m_Name: IceCreamBall
   m_TagString: Enemy
@@ -125,8 +126,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.2464059, y: 0.05838275}
-  m_Radius: 1.6147465
+  m_Offset: {x: 0.52806854, y: 0.19738138}
+  m_Radius: 0.9380549
 --- !u!114 &-3065857287672590177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a96e5e0ec68a24e85e3927feab3354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 5
+  lifeTime: 1
 --- !u!50 &-8188301808220991726
 Rigidbody2D:
   serializedVersion: 5
@@ -177,7 +178,7 @@ Animator:
   m_GameObject: {fileID: 3640338023391137139}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ba1fd575bef4594ca4bb67463c9e3b5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6220af52456d6f641ad2b86d5ba84d9f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -189,3 +190,39 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &26228906359906063
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640338023391137139}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.52806854, y: 0.19738138}
+  m_Radius: 0.9380549
