@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cimenli_blok_0: 5404436046449353549
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
