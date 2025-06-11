@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public BobImprovements Improvement;
     public List<Pickable> Inventory;
     public int IceCream = 0;
+    public bool hasWaterPower = false;
+    public Color poweredColor = Color.blue;
     public bool isDead = false;
     public bool isInvicible = false;
     public bool isDeadly = false;
@@ -138,7 +140,7 @@ public class PlayerController : MonoBehaviour
             GlobalClass.ReloadLevel();
         }
     }
-
+    
     void CheckInvicible()
     {
         if (invicibleTime > 0f)
@@ -157,6 +159,12 @@ public class PlayerController : MonoBehaviour
             isDeadly = false;
         }
     }
+    public void ActivateWaterPower()
+    {
+        hasWaterPower = true;
+
+    }
+
 
     void Update()
     {
@@ -299,6 +307,10 @@ public class PlayerController : MonoBehaviour
             case PickableType.BowlIceCream:
                 BobImprove(BobImprovements.IceCream);
                 break;
+            
+            case PickableType.WaterDrop:
+                ActivateWaterPower();
+                break;
 
             case PickableType.Other:
                 Inventory.Add(item.Data());
@@ -333,11 +345,14 @@ public class PlayerController : MonoBehaviour
         float enemyY = collision.transform.position.y;
 
 
-        if (playerY > enemyY + 0.5f)
+        if (playerY > enemyY + 0.5f && hasWaterPower == true)
         {
-            collision.GetComponent<FireEnemy>().Die();
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 5f);
+
+            collision.GetComponent<FireEnemy>().TurnIntoBox();
+            GetComponent<Rigidbody2D>().linearVelocity = new Vector2(GetComponent<Rigidbody2D>().linearVelocity.x, 10f);
         }
+
+
         else
         {
             if (isInvicible)
@@ -352,16 +367,18 @@ public class PlayerController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-    }
+        }
+    
 
-    void BobHit(Transform t)
-    {
-        Vector2 dir = Vector2.zero;
-        dir.x = transform.position.x < t.position.x ? -10f : 10f;
-        dir.y = 7f;
+        void BobHit(Transform t)
+        {
+            Vector2 dir = Vector2.zero;
+            dir.x = transform.position.x < t.position.x ? -10f : 10f;
+            dir.y = 7f;
 
-        rb.linearVelocity = dir;
-    }
+            rb.linearVelocity = dir;
+        }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
