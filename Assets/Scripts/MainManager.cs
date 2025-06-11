@@ -9,6 +9,7 @@ public class MainManager : MonoBehaviour
     public GameObject Donut;
     public GameObject BowlIceCream;
     public GameObject Cupcake;
+    public GameObject WaterDrop;
 
     [Space]
     [Header("Pickup Sprites")]

@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     public List<Pickable> Inventory;
     public int IceCream = 0;
     public bool hasWaterPower = false;
-    public Color poweredColor = Color.blue;
     public bool isDead = false;
     public bool isInvicible = false;
     public bool isDeadly = false;
@@ -47,7 +46,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
-    
+
     private PlayerMeshController meshController;
     private MainManager mainManager;
     private GameObject invicibleEffect;
@@ -75,7 +74,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        foreach(Lock l in FindObjectsByType<Lock>(FindObjectsSortMode.None))
+        foreach (Lock l in FindObjectsByType<Lock>(FindObjectsSortMode.None))
         {
             if (GlobalClass.Unlocks.Contains(l.Key))
                 Destroy(l.DestroyRoot);
@@ -126,21 +125,21 @@ public class PlayerController : MonoBehaviour
         // Get horizontal input
         moveInput = Input.GetAxis("Horizontal");
 
-        if (Improvement == BobImprovements.IceCream ||Improvement == BobImprovements.Pizza)
+        if (Improvement == BobImprovements.IceCream || Improvement == BobImprovements.Pizza)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 HandleProjectiles();
             }
         }
-        
+
         //Restart
         if (Input.GetKey(KeyCode.R))
         {
             GlobalClass.ReloadLevel();
         }
     }
-    
+
     void CheckInvicible()
     {
         if (invicibleTime > 0f)
@@ -159,11 +158,7 @@ public class PlayerController : MonoBehaviour
             isDeadly = false;
         }
     }
-    public void ActivateWaterPower()
-    {
-        hasWaterPower = true;
 
-    }
 
 
     void Update()
@@ -258,6 +253,9 @@ public class PlayerController : MonoBehaviour
             case BobImprovements.IceCream:
                 Instantiate(mainManager.Poof, transform);
                 break;
+            case BobImprovements.WaterDrop:
+                Instantiate(mainManager.Poof, transform);
+                break;
         }
 
         Improvement = i;
@@ -309,7 +307,9 @@ public class PlayerController : MonoBehaviour
                 break;
             
             case PickableType.WaterDrop:
-                ActivateWaterPower();
+                hasWaterPower = true;
+                BobImprove(BobImprovements.WaterDrop);
+
                 break;
 
             case PickableType.Other:

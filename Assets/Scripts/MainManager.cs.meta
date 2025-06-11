@@ -1,2 +1,22 @@
 fileFormatVersion: 2
 guid: 835788c53cc7d994c8e33265acf0ad27
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ConeIceCream: {fileID: 1147505530683530228, guid: d469b818568745f43a32119e35c85d8f, type: 3}
+  - Donut: {fileID: 830451930820448189, guid: b56ed9d3531eb8b44a1c3261ec8ded37, type: 3}
+  - BowlIceCream: {fileID: 6478390761870314442, guid: 3f60818cd700f2d42812eaa9b3f0d64b, type: 3}
+  - Cupcake: {fileID: 1750611432074399109, guid: a7a2125e317643c4abf2a1a80e9b68bf, type: 3}
+  - WaterDrop: {fileID: 4320244214433800291, guid: 9df177361c9a151459977d25f602976e, type: 3}
+  - Projectile_IceCream: {instanceID: 0}
+  - Projectile_Pizza: {instanceID: 0}
+  - Projectile_Destroy: {fileID: 1371258623037138484, guid: a2e39a9c6c409f249843367d8f403a5e, type: 3}
+  - Invicible: {fileID: 5775645161543793813, guid: 94443d0985f8bbb40bfecc2c3a41850a, type: 3}
+  - Poof: {fileID: 8844653109988328772, guid: 8b11b2fb42f23c2429b1274ac6a1ce14, type: 3}
+  - BrokenHeart: {fileID: 3838376139478134405, guid: 7877ae1db89e8f14eb749f22b4ceea68, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

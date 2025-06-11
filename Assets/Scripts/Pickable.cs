@@ -6,8 +6,7 @@ public enum PickableType
     Donut = 2,
     BowlIceCream = 3,
     Cupcake = 4,
-    WaterDrop =5,
-
+    WaterDrop=5,
     Other = 0
 }
 

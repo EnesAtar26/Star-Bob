@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMeshController : MonoBehaviour
 {
     public GameObject AliveParts, DeathParts;
-    public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart;
+    public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart, WaterPowerPart;
     public float rotationLimit = 5f;
 
     GameObject bob;
@@ -61,6 +61,13 @@ public class PlayerMeshController : MonoBehaviour
                 ArmorPart.SetActive(false);
                 PizzaPart.SetActive(false);
                 IceCreamPart.SetActive(true);
+                break;
+            case BobImprovements.WaterDrop:
+                NormalPart.SetActive(false);
+                ArmorPart.SetActive(false);
+                PizzaPart.SetActive(false);
+                IceCreamPart.SetActive(false);
+                WaterPowerPart.SetActive(true);
                 break;
         }
     }
