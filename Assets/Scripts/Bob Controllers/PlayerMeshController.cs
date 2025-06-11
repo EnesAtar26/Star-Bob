@@ -40,6 +40,7 @@ public class PlayerMeshController : MonoBehaviour
                 ArmorPart.SetActive(false);
                 PizzaPart.SetActive(false);
                 IceCreamPart.SetActive(false);
+                WaterPowerPart.SetActive(false);
                 break;
 
             case BobImprovements.Armor:
@@ -47,6 +48,7 @@ public class PlayerMeshController : MonoBehaviour
                 ArmorPart.SetActive(true);
                 PizzaPart.SetActive(false);
                 IceCreamPart.SetActive(false);
+                WaterPowerPart.SetActive(false);
                 break;
 
             case BobImprovements.Pizza:
@@ -54,6 +56,7 @@ public class PlayerMeshController : MonoBehaviour
                 ArmorPart.SetActive(false);
                 PizzaPart.SetActive(true);
                 IceCreamPart.SetActive(false);
+                WaterPowerPart.SetActive(false);
                 break;
 
             case BobImprovements.IceCream:
@@ -61,6 +64,7 @@ public class PlayerMeshController : MonoBehaviour
                 ArmorPart.SetActive(false);
                 PizzaPart.SetActive(false);
                 IceCreamPart.SetActive(true);
+                WaterPowerPart.SetActive(false);
                 break;
             case BobImprovements.WaterDrop:
                 NormalPart.SetActive(false);
@@ -69,9 +73,9 @@ public class PlayerMeshController : MonoBehaviour
                 IceCreamPart.SetActive(false);
                 WaterPowerPart.SetActive(true);
                 break;
+
         }
     }
-
     bool deathPreapered = false;
     void Update()
     {

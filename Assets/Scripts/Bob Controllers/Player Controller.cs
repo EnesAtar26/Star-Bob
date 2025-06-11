@@ -310,6 +310,7 @@ public class PlayerController : MonoBehaviour
                 hasWaterPower = true;
                 BobImprove(BobImprovements.WaterDrop);
 
+
                 break;
 
             case PickableType.Other:

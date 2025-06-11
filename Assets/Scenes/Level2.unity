@@ -1684,6 +1684,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7321549951648019163, guid: d469b818568745f43a32119e35c85d8f, type: 3}
   m_PrefabInstance: {fileID: 1526202070}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &843116399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2559927751734624500, guid: 94443d0985f8bbb40bfecc2c3a41850a, type: 3}
+  m_PrefabInstance: {fileID: 1762874954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &849497511
 GameObject:
   m_ObjectHideFlags: 0
@@ -4497,7 +4502,7 @@ PrefabInstance:
     - target: {fileID: 9056381237381173300, guid: 94443d0985f8bbb40bfecc2c3a41850a, type: 3}
       propertyPath: WaterPowerPart
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 843116399}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
