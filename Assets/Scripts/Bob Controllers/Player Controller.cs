@@ -8,7 +8,8 @@ public enum BobImprovements
     None,
     Armor,
     Pizza,
-    IceCream
+    IceCream,
+    WaterDrop
 }
 
 public class PlayerController : MonoBehaviour
@@ -320,7 +321,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDeadly)
         {
-            collision.GetComponent<Enemy2>().Die();
+            collision.GetComponent<FireEnemy>().Die();
             var dirX = transform.position.x - collision.transform.position.x;
             float p = dirX < 0 ? 8f : -8f;
             rb.linearVelocity = new Vector2(rb.linearVelocityX + p, rb.linearVelocityY);
@@ -334,7 +335,7 @@ public class PlayerController : MonoBehaviour
 
         if (playerY > enemyY + 0.5f)
         {
-            collision.GetComponent<Enemy2>().Die();
+            collision.GetComponent<FireEnemy>().Die();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 5f);
         }
         else
