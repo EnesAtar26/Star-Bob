@@ -1,7 +1,15 @@
 fileFormatVersion: 2
-guid: e5e3d1cd65972e14eac738bc8da97226
+guid: 788546734db1845eca19222274234cb1
+timeCreated: 1498427410
+licenseType: Store
 DefaultImporter:
-  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 94029
+  packageName: UnderWater Diving
+  packageVersion: 1.0
+  assetPath: Assets/Underwater Diving3/Scenes/title-screen.unity
+  uploadId: 186884

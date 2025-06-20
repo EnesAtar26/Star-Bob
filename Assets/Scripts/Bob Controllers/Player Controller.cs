@@ -336,26 +336,39 @@ public class PlayerController : MonoBehaviour
 
     void EnemyCollision(Collider2D collision)
     {
-        if (isDeadly)
-        {
-            collision.GetComponent<FireEnemy>().Die();
-            var dirX = transform.position.x - collision.transform.position.x;
-            float p = dirX < 0 ? 8f : -8f;
-            rb.linearVelocity = new Vector2(rb.linearVelocityX + p, rb.linearVelocityY);
-            return;
-        }
-
-        Vector2 contactPoint = collision.ClosestPoint(transform.position);
         float playerY = transform.position.y;
         float enemyY = collision.transform.position.y;
 
-
-        if (playerY > enemyY + 0.5f && hasWaterPower == true)
+        // Yukarıdan çarpma kontrolü
+        if (playerY > enemyY + 0.5f)
         {
+            // FireEnemy ise ve su gücü varsa kutuya dönüş
+            if (hasWaterPower)
+            {
+                FireEnemy fireEnemy = collision.gameObject.GetComponent<FireEnemy>();
+                if (fireEnemy != null)
+                {
+                    fireEnemy.TurnIntoBox();
 
-            collision.GetComponent<FireEnemy>().TurnIntoBox();
-            GetComponent<Rigidbody2D>().linearVelocity = new Vector2(GetComponent<Rigidbody2D>().linearVelocity.x, 10f);
+                    // Oyuncuyu yukarı zıplat
+                    Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                    if (rb != null)
+                    {
+                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 10f);
+                    }
+
+                    return; // Kod burada sonlansın, aşağıya geçmesin
+                }
+            }
+
+            // Eğer düşman IceEnemy ise öldür
+            IceEnemy iceEnemy = collision.gameObject.GetComponent<IceEnemy>();
+            if (iceEnemy != null)
+            {
+                iceEnemy.Die(); // IceEnemy sınıfında Die() fonksiyonun varsa
+            }
         }
+    
 
 
         else

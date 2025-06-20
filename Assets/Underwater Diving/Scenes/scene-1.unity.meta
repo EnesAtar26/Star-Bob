@@ -1,7 +1,15 @@
 fileFormatVersion: 2
-guid: 85d816d7407ab7b44a3dfa9d9d8c97c7
+guid: e08243922417842828467f43d5971f1e
+timeCreated: 1498189200
+licenseType: Store
 DefaultImporter:
-  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 94029
+  packageName: UnderWater Diving
+  packageVersion: 1.0
+  assetPath: Assets/Underwater Diving3/Scenes/scene-1.unity
+  uploadId: 186884
