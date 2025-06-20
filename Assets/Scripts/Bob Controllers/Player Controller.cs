@@ -228,6 +228,10 @@ public class PlayerController : MonoBehaviour
                 var bh = Instantiate(mainManager.BrokenHeart);
                 bh.transform.position = transform.position;
                 break;
+            
+            case BobImprovements.WaterDrop:
+                Destroy(gameObject);
+                return;
 
             default:
                 invicibleTime = 2f;
@@ -241,7 +245,7 @@ public class PlayerController : MonoBehaviour
 
     void BobImprove(BobImprovements i)
     {
-        if (Improvement == BobImprovements.None) // E�er Bob'un herhangi bir improvement'i yoksa sadece armor alabilir
+        if (Improvement == BobImprovements.None && i!=BobImprovements.WaterDrop) // E�er Bob'un herhangi bir improvement'i yoksa sadece armor alabilir
             i = BobImprovements.Armor;
 
         switch (i)
