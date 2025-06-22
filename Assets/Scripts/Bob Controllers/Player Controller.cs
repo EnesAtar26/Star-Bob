@@ -336,46 +336,54 @@ public class PlayerController : MonoBehaviour
 
     void EnemyCollision(Collider2D collision)
     {
+        if (isDeadly)
+        {
+            IEnemy enemy = collision.GetComponent<IEnemy>();
+            if (enemy != null)
+            {
+                enemy.Die();
+                var dirX = transform.position.x - collision.transform.position.x;
+                float p = dirX < 0 ? 8f : -8f;
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x + p, rb.linearVelocity.y);
+                return;
+            }
+            // Eğer çarpılan nesne düşman değilse, başka işlem yapma veya oyuncuyu öldür
+            return; // isDeadly modda düşman değilse işlem yapma
+        }
+
         float playerY = transform.position.y;
         float enemyY = collision.transform.position.y;
 
-        // Yukarıdan çarpma kontrolü
         if (playerY > enemyY + 0.5f)
         {
-            // FireEnemy ise ve su gücü varsa kutuya dönüş
+            // Yukarıdan çarptıysa
             if (hasWaterPower)
             {
                 FireEnemy fireEnemy = collision.gameObject.GetComponent<FireEnemy>();
                 if (fireEnemy != null)
                 {
                     fireEnemy.TurnIntoBox();
-
-                    // Oyuncuyu yukarı zıplat
-                    Rigidbody2D rb = GetComponent<Rigidbody2D>();
-                    if (rb != null)
-                    {
-                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 10f);
-                    }
-
-                    return; // Kod burada sonlansın, aşağıya geçmesin
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, 10f);
+                    return;
                 }
             }
 
-            // Eğer düşman IceEnemy ise öldür
-            IceEnemy iceEnemy = collision.gameObject.GetComponent<IceEnemy>();
-            if (iceEnemy != null)
+            // Yukarıdan vurdu ama ya su gücü yok ya da FireEnemy değil
+            IEnemy enemy = collision.GetComponent<IEnemy>();
+            if (enemy != null)
             {
-                iceEnemy.Die(); // IceEnemy sınıfında Die() fonksiyonun varsa
+                enemy.Die();
+                BounceUp(); // Yukarıdan zıplama efekti
+                return;
             }
         }
-    
-
-
         else
         {
+            // Aşağıdan çarpma durumu
             if (isInvicible)
                 return;
-            else if (Improvement != BobImprovements.None)
+
+            if (Improvement != BobImprovements.None)
             {
                 BobHit(collision.transform);
                 BobDeimprove();
@@ -385,10 +393,14 @@ public class PlayerController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        }
-    
+    }
 
-        void BobHit(Transform t)
+    void BounceUp()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 5f);
+    }
+
+    void BobHit(Transform t)
         {
             Vector2 dir = Vector2.zero;
             dir.x = transform.position.x < t.position.x ? -10f : 10f;

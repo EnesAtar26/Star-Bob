@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 6753805640735620178}
   - component: {fileID: 8939050460617564176}
   - component: {fileID: 7593107903485588474}
-  - component: {fileID: 1440753162885108049}
   - component: {fileID: 3087922346204102721}
+  - component: {fileID: -2721036809466600955}
+  - component: {fileID: 5926342290550953740}
   m_Layer: 0
   m_Name: IceEnemy
   m_TagString: Enemy
@@ -153,7 +154,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.04281807, y: -1.0275326}
+  m_Offset: {x: 0.04281807, y: -1.1357663}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -163,7 +164,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6.7292595, y: 5.7549353}
+  m_Size: {x: 6.7292595, y: 5.9714026}
   m_EdgeRadius: 0
 --- !u!114 &7593107903485588474
 MonoBehaviour:
@@ -181,7 +182,32 @@ MonoBehaviour:
   hareketMesafesi: 3
   donusHizi: 100
   gravityScale: 1
---- !u!61 &1440753162885108049
+--- !u!114 &3087922346204102721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2590614063960491961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc23c2c9747faa54abf4987485fc072c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
+--- !u!114 &-2721036809466600955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2590614063960491961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84d8f193e2155464fb7d0a04f7eea480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &5926342290550953740
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,7 +241,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.04281807, y: -1.0275326}
+  m_Offset: {x: 0.04281807, y: -1.1357663}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -225,18 +251,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 6.7292595, y: 5.7549353}
+  m_Size: {x: 6.7292595, y: 5.9714026}
   m_EdgeRadius: 0
---- !u!114 &3087922346204102721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2590614063960491961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc23c2c9747faa54abf4987485fc072c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathEffect: {fileID: 6644132299771451035, guid: 2eeb0ca96c55775429a7abf3fb8b798a, type: 3}

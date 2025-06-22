@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FireEnemy : MonoBehaviour
+public class FireEnemy : MonoBehaviour,IEnemy
 {
     public GameObject deathEffect;
     public GameObject fireballPrefab;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5033164888385963137}
   - component: {fileID: 2010682507144593918}
   - component: {fileID: 6666436273750877605}
-  - component: {fileID: 6844368297497166692}
+  - component: {fileID: 7328553456343228663}
   m_Layer: 0
   m_Name: icycle
   m_TagString: Untagged
@@ -153,7 +153,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6844368297497166692
+--- !u!114 &7328553456343228663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,8 +162,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6375804163142026992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9855b0a26ae0cc42b767e41776a4f0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d3aa5f9568c38d42af8b1d409674e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 600
   moveSpeed: 4
+  timer: 5

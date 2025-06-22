@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IceEnemy : MonoBehaviour
+public class IceEnemy : MonoBehaviour,IEnemy
 {
 
     public GameObject deathEffect;
