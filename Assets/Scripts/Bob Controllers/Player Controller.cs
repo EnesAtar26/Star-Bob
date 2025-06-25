@@ -1,6 +1,7 @@
+using NUnit.Framework.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 public enum BobImprovements
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public bool isInvicible = false;
     public bool isDeadly = false;
     public float invicibleTime = 0f;
+    
     public int projectileCount = 0;
     [Space]
 
@@ -230,6 +232,7 @@ public class PlayerController : MonoBehaviour
                 break;
             
             case BobImprovements.WaterDrop:
+                
                 Destroy(gameObject);
                 return;
 
@@ -309,14 +312,12 @@ public class PlayerController : MonoBehaviour
             case PickableType.BowlIceCream:
                 BobImprove(BobImprovements.IceCream);
                 break;
-            
+
             case PickableType.WaterDrop:
                 hasWaterPower = true;
                 BobImprove(BobImprovements.WaterDrop);
-
-
+                StartCoroutine(RemoveWaterPowerAfterDelay(5f)); // 5 saniye sonra özellik silinsin
                 break;
-
             case PickableType.Other:
                 Inventory.Add(item.Data());
                 break;
@@ -333,6 +334,13 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+    IEnumerator RemoveWaterPowerAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        hasWaterPower = false;
+        
+    }
+
 
     void EnemyCollision(Collider2D collision)
     {
@@ -357,13 +365,19 @@ public class PlayerController : MonoBehaviour
         if (playerY > enemyY + 0.5f)
         {
             // Yukarıdan çarptıysa
-            if (hasWaterPower)
+            FireEnemy fireEnemy = collision.gameObject.GetComponent<FireEnemy>();
+            if (fireEnemy != null)
             {
-                FireEnemy fireEnemy = collision.gameObject.GetComponent<FireEnemy>();
-                if (fireEnemy != null)
+                if (hasWaterPower)
                 {
                     fireEnemy.TurnIntoBox();
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, 10f);
+                    return;
+                }
+                else
+                {
+                    // Su gücü yoksa ve FireEnemy'ye çarptıysa karakter ölür
+                    Destroy(gameObject);
                     return;
                 }
             }
