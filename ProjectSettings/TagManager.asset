@@ -13,6 +13,8 @@ TagManager:
   - FxTemporaire
   - Force Killer
   - PlatformBox
+  - Pushable
+  - Exit
   layers:
   - Default
   - TransparentFX
