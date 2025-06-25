@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public bool isInvicible = false;
     public bool isDeadly = false;
     public float invicibleTime = 0f;
-    
+
     public int projectileCount = 0;
     [Space]
 
@@ -230,9 +230,9 @@ public class PlayerController : MonoBehaviour
                 var bh = Instantiate(mainManager.BrokenHeart);
                 bh.transform.position = transform.position;
                 break;
-            
+
             case BobImprovements.WaterDrop:
-                
+
                 Destroy(gameObject);
                 return;
 
@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
     void BobImprove(BobImprovements i)
     {
-        if (Improvement == BobImprovements.None && i!=BobImprovements.WaterDrop) // E�er Bob'un herhangi bir improvement'i yoksa sadece armor alabilir
+        if (Improvement == BobImprovements.None && i != BobImprovements.WaterDrop) // E�er Bob'un herhangi bir improvement'i yoksa sadece armor alabilir
             i = BobImprovements.Armor;
 
         switch (i)
@@ -316,7 +316,7 @@ public class PlayerController : MonoBehaviour
             case PickableType.WaterDrop:
                 hasWaterPower = true;
                 BobImprove(BobImprovements.WaterDrop);
-                StartCoroutine(RemoveWaterPowerAfterDelay(5f)); // 5 saniye sonra özellik silinsin
+                StartCoroutine(RemoveWaterPowerAfterDelay(15f)); // 5 saniye sonra özellik silinsin
                 break;
             case PickableType.Other:
                 Inventory.Add(item.Data());
@@ -334,15 +334,30 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
+   
+
     IEnumerator RemoveWaterPowerAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        RemoveWaterPower(); // Gücü güvenli şekilde kaldır
+
+    }
+    void RemoveWaterPower()
+    {
         hasWaterPower = false;
+
+        if (Improvement == BobImprovements.WaterDrop)
+        {
+            Improvement = BobImprovements.None;
+            meshController.UpdatePlayerMeshImprovement(); // Görsel güncelle
+        }
+
         
     }
 
 
-    void EnemyCollision(Collider2D collision)
+
+void EnemyCollision(Collider2D collision)
     {
         if (isDeadly)
         {
