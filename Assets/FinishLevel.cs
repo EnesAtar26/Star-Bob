@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitTrigger : MonoBehaviour
 {
@@ -7,10 +8,9 @@ public class ExitTrigger : MonoBehaviour
         if (other.CompareTag("Player")) // Oyuncuya deðdiyse
         {
             int nextLevel = GlobalClass.CurrentLevel + 1;
+            if (nextLevel == 31) SceneManager.LoadScene("Menu");
             if (nextLevel == 4) nextLevel = 30;
 
-            GlobalClass.MusicLeftover = 0f;
-            GlobalClass.CurrentTimeSeconds = 0f;
             GlobalClass.LoadLevel(nextLevel, resetCheckpoint: true);
         }
     }

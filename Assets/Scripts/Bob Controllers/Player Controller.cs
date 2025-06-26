@@ -1,8 +1,9 @@
-using NUnit.Framework.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Interfaces;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum BobImprovements
 {
@@ -142,6 +143,9 @@ public class PlayerController : MonoBehaviour
             GlobalClass.MusicLeftover = FindAnyObjectByType<MainManager>().GetComponent<AudioSource>().time;
             GlobalClass.ReloadLevel();
         }
+
+        if (Input.GetKey(KeyCode.Escape))
+            SceneManager.LoadScene("Menu");
     }
 
     void CheckInvicible()

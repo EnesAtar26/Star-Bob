@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class GlobalClass
@@ -16,14 +18,20 @@ public static class GlobalClass
 
     public static void LoadLevel(int level, bool resetCheckpoint = false)
     {
+        Cursor.lockState = CursorLockMode.Locked;
         if (resetCheckpoint)
             CurrentCheckPoint = 0;
 
+        CurrentLevel = level;
+        CurrentCheckPoint = 0;
+        CurrentTimeSeconds = 0f;
+        MusicLeftover = 0f;
         SceneManager.LoadScene("Level" + level);
     }
 
     public static void ReloadLevel(bool resetCheckpoint = false)
     {
+        Cursor.lockState = CursorLockMode.Locked;
         if (resetCheckpoint)
             CurrentCheckPoint = 0;
 
