@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 public class PlayerMeshController : MonoBehaviour
 {
     public GameObject AliveParts, DeathParts;
-    public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart, WaterPowerPart;
+    public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart;
     public float rotationLimit = 5f;
+
+    public AudioSource audioSource;
 
     GameObject bob;
     Rigidbody2D bobRb;
@@ -139,6 +141,7 @@ public class PlayerMeshController : MonoBehaviour
     public IEnumerator DeathRespawn()
     {
         yield return new WaitForSeconds(1.2f);
+        GlobalClass.MusicLeftover = FindAnyObjectByType<MainManager>().GetComponent<AudioSource>().time;
         GlobalClass.ReloadLevel();
     }
 }

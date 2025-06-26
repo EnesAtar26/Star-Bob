@@ -8,6 +8,7 @@ public class MassBox : MonoBehaviour
     {
         if (collision.tag == "PlatformBox" && collision.transform.position.y > transform.position.y)
         {
+            collision.GetComponent<MassBox>().TopBox = null;
             TopBox = collision.gameObject;
         }
     }

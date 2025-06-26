@@ -6,6 +6,11 @@ public static class GlobalClass
     public static int CurrentLevel;
     public static int CurrentCheckPoint = 0;
 
+    public static float CurrentTimeSeconds = 0f;
+    public static int Score = 0;
+
+    public static float MusicLeftover = 0f;
+
     public static List<Pickable> Inventory;
     public static List<string> Unlocks = new();
 

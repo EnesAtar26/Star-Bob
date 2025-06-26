@@ -24,6 +24,25 @@ public class MainManager : MonoBehaviour
     public GameObject BrokenHeart;
 
     [Space]
+    [Space]
+    [Header("Sounds")]
+    public AudioClip Jump;
+    public AudioClip Tramboline;
+    public AudioClip Pickup;
+    public AudioClip Canon;
+    public AudioClip EnemyDie;
+    public AudioClip Death;
+
 
     public LayerMask TreausureFlipLayers;
+
+    private void Start()
+    {
+        GetComponent<AudioSource>().time = GlobalClass.MusicLeftover;
+    }
+
+    private void Update()
+    {
+        GlobalClass.CurrentTimeSeconds += Time.deltaTime;
+    }
 }

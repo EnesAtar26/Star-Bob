@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviour
         //Restart
         if (Input.GetKey(KeyCode.R))
         {
+            GlobalClass.MusicLeftover = FindAnyObjectByType<MainManager>().GetComponent<AudioSource>().time;
             GlobalClass.ReloadLevel();
         }
     }
@@ -296,10 +297,12 @@ public class PlayerController : MonoBehaviour
         {
             case PickableType.ConeIceCream:
                 IceCream++;
+                GlobalClass.Score += 100;
                 break;
 
             case PickableType.Donut:
                 BobImprove(BobImprovements.Armor);
+                GlobalClass.Score += 1000;
                 break;
 
             case PickableType.Cupcake:
@@ -307,10 +310,7 @@ public class PlayerController : MonoBehaviour
                 isDeadly = true;
                 if (invicibleEffect == null)
                     invicibleEffect = Instantiate(mainManager.Invicible, transform);
-                break;
-
-            case PickableType.BowlIceCream:
-                BobImprove(BobImprovements.IceCream);
+                GlobalClass.Score += 1000;
                 break;
 
             case PickableType.WaterDrop:
@@ -318,10 +318,17 @@ public class PlayerController : MonoBehaviour
                 BobImprove(BobImprovements.WaterDrop);
                 StartCoroutine(RemoveWaterPowerAfterDelay(15f)); // 5 saniye sonra özellik silinsin
                 break;
+
+            case PickableType.BowlIceCream:
+                BobImprove(BobImprovements.IceCream);
+                GlobalClass.Score += 1000;
+                break;
+
             case PickableType.Other:
                 Inventory.Add(item.Data());
                 break;
         }
+        meshController.audioSource.PlayOneShot(mainManager.Pickup);
         Destroy(item.DestroyRoot);
     }
 
@@ -355,31 +362,24 @@ public class PlayerController : MonoBehaviour
         
     }
 
-
-
-void EnemyCollision(Collider2D collision)
+    void EnemyCollision(Collider2D collision)
     {
         if (isDeadly)
         {
-            IEnemy enemy = collision.GetComponent<IEnemy>();
-            if (enemy != null)
-            {
-                enemy.Die();
-                var dirX = transform.position.x - collision.transform.position.x;
-                float p = dirX < 0 ? 8f : -8f;
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x + p, rb.linearVelocity.y);
-                return;
-            }
-            // Eğer çarpılan nesne düşman değilse, başka işlem yapma veya oyuncuyu öldür
-            return; // isDeadly modda düşman değilse işlem yapma
+            collision.GetComponent<Enemy2>().Die();
+            var dirX = transform.position.x - collision.transform.position.x;
+            float p = dirX < 0 ? 8f : -8f;
+            rb.linearVelocity = new Vector2(rb.linearVelocityX + p, rb.linearVelocityY);
+            return;
         }
 
+        Vector2 contactPoint = collision.ClosestPoint(transform.position);
         float playerY = transform.position.y;
         float enemyY = collision.transform.position.y;
 
+
         if (playerY > enemyY + 0.5f)
         {
-            // Yukarıdan çarptıysa
             FireEnemy fireEnemy = collision.gameObject.GetComponent<FireEnemy>();
             if (fireEnemy != null)
             {
@@ -405,20 +405,22 @@ void EnemyCollision(Collider2D collision)
                 BounceUp(); // Yukarıdan zıplama efekti
                 return;
             }
+
+            //collision.GetComponent<Enemy2>().Die();
+            //rb.linearVelocity = new Vector2(rb.linearVelocity.x, 5f);
         }
         else
         {
-            // Aşağıdan çarpma durumu
             if (isInvicible)
                 return;
-
-            if (Improvement != BobImprovements.None)
+            else if (Improvement != BobImprovements.None)
             {
                 BobHit(collision.transform);
                 BobDeimprove();
             }
             else
             {
+                meshController.audioSource.PlayOneShot(mainManager.Death);
                 Destroy(gameObject);
             }
         }
@@ -451,12 +453,16 @@ void EnemyCollision(Collider2D collision)
                         BobHit(collision.transform);
                         BobDeimprove();
                     }
-                    else
+                    else 
+                    {
+                        meshController.audioSource.PlayOneShot(mainManager.Death);
                         Destroy(gameObject);
+                    }
                 }
                 break;
 
             case "Force Killer":
+                meshController.audioSource.PlayOneShot(mainManager.Death);
                 Destroy(gameObject);
                 break;
 
@@ -470,6 +476,7 @@ void EnemyCollision(Collider2D collision)
                 if (pusher.x) v.x = pusher.Power.x;
                 if (pusher.y) v.y = pusher.Power.y;
                 rb.linearVelocity = v;
+                meshController.audioSource.PlayOneShot(mainManager.Tramboline);
                 break;
 
             case "Pickable":
