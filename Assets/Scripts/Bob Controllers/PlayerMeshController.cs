@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMeshController : MonoBehaviour
 {
     public GameObject AliveParts, DeathParts;
-    public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart;
+    public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart, WaterPowerPart;
     public float rotationLimit = 5f;
 
     public AudioSource audioSource;

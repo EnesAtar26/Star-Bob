@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 HandleProjectiles();
+                meshController.audioSource.PlayOneShot(mainManager.Jump);
             }
         }
 
@@ -178,6 +179,7 @@ public class PlayerController : MonoBehaviour
         // Jump
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            meshController.audioSource.PlayOneShot(mainManager.Jump);
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
     }
@@ -366,7 +368,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDeadly)
         {
-            collision.GetComponent<Enemy2>().Die();
+            collision.GetComponent<IEnemy>().Die();
             var dirX = transform.position.x - collision.transform.position.x;
             float p = dirX < 0 ? 8f : -8f;
             rb.linearVelocity = new Vector2(rb.linearVelocityX + p, rb.linearVelocityY);
@@ -438,6 +440,7 @@ public class PlayerController : MonoBehaviour
             dir.y = 7f;
 
             rb.linearVelocity = dir;
+        meshController.audioSource.PlayOneShot(mainManager.Death);
         }
     
 
@@ -476,7 +479,8 @@ public class PlayerController : MonoBehaviour
                 if (pusher.x) v.x = pusher.Power.x;
                 if (pusher.y) v.y = pusher.Power.y;
                 rb.linearVelocity = v;
-                meshController.audioSource.PlayOneShot(mainManager.Tramboline);
+                if (!pusher.transform.parent.name.StartsWith("Treasure Block"))
+                    meshController.audioSource.PlayOneShot(mainManager.Tramboline);
                 break;
 
             case "Pickable":
