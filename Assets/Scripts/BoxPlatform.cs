@@ -8,34 +8,19 @@ using UnityEngine;
 public class BoxPlatform : MonoBehaviour
 {
     [Serializable]
-    public class PBoxProperties
-    {
-        public GameObject gobj;
-        public float mass;
-    }
-
-    [Serializable]
     public class PBoxStates
     {
         public float maxMass;
+        public float dropSpeed;
         public Transform locationOBJ;
         public Vector3 location;
     }
-
-    public float totalMassOnPlatform = 0f;
-    public float TotalMass = 0f;
-    public List<PBoxProperties> Boxes;
     public List<PBoxStates> States;
-
-    Coroutine coroutine;
 
     [Space]
 
     public float currentMass = 0f;
-    
-    public float requiredMass = 5f;
-    public float dropDistance = 2f;
-    public float dropSpeed = 1f;
+
     public LayerMask objectLayer;
     public float CastUp;
     public Vector2 CastSize;
@@ -49,22 +34,24 @@ public class BoxPlatform : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         startPosition = (Vector2)transform.position;
+
+        foreach(PBoxStates ps in States)
+        {
+            ps.location = startPosition + (Vector2)ps.locationOBJ.localPosition;
+        }
     }
 
     void FixedUpdate()
     {
         currentMass = GetMassOnTop();
 
-        if (currentMass >= requiredMass)
+        foreach(PBoxStates ps in States)
         {
-            // Move down, but limit to max drop
-            Vector2 targetPosition = new Vector2(startPosition.x, startPosition.y - dropDistance);
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, dropSpeed * Time.fixedDeltaTime);
-        }
-        else
-        {
-            // Move back up to original position
-            transform.position = Vector2.MoveTowards(transform.position, startPosition, dropSpeed * Time.fixedDeltaTime);
+            if (currentMass <= ps.maxMass)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, ps.location, ps.dropSpeed * Time.fixedDeltaTime);
+                break;
+            }
         }
     }
 

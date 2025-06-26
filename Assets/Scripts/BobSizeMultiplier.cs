@@ -1,19 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PSmoothie : Pickable
+public class BobSizeMultiplier : Pickable
 {
     public List<Rigidbody2D> MassChanges;
+
+    public float SizeMultiplier;
+    public float MassChange;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         foreach (Rigidbody2D r in MassChanges)
-            r.mass = 0.05f;
+            r.mass = MassChange;
 
         var pc = FindAnyObjectByType<PlayerController>();
-        pc.transform.localScale *= 2;
-        pc.groundCheckRadius *= 2;
+        pc.transform.localScale *= SizeMultiplier;
+        pc.groundCheckRadius *= SizeMultiplier;
         var pcMesh = FindAnyObjectByType<PlayerMeshController>();
-        pcMesh.transform.localScale *= 2;
+        pcMesh.transform.localScale *= SizeMultiplier;
     }
 }

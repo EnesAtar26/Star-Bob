@@ -9,6 +9,8 @@ public class Canon : MonoBehaviour
     public bool X, Y;
 
     PlayerController bob;
+    PlayerMeshController pmc;
+    MainManager main;
     bool inside;
     Coroutine c;
 
@@ -21,7 +23,8 @@ public class Canon : MonoBehaviour
         yield return new WaitForSeconds(2);
         IgniteFire.Stop();
         IgniteExplosion.Play();
-        
+        pmc.audioSource.PlayOneShot(main.Canon);
+
         if (inside) 
         {
             if (X) bob.GetComponent<Rigidbody2D>().linearVelocityX = SetVelocity.x;
@@ -35,6 +38,8 @@ public class Canon : MonoBehaviour
     private void Start()
     {
         bob = FindAnyObjectByType<PlayerController>();
+        pmc = FindAnyObjectByType<PlayerMeshController>();
+        main = FindAnyObjectByType<MainManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

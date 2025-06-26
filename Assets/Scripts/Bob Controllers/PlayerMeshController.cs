@@ -8,6 +8,8 @@ public class PlayerMeshController : MonoBehaviour
     public GameObject NormalPart, ArmorPart, PizzaPart, IceCreamPart;
     public float rotationLimit = 5f;
 
+    public AudioSource audioSource;
+
     GameObject bob;
     Rigidbody2D bobRb;
     PlayerController playerController;
@@ -128,6 +130,7 @@ public class PlayerMeshController : MonoBehaviour
     public IEnumerator DeathRespawn()
     {
         yield return new WaitForSeconds(1.2f);
+        GlobalClass.MusicLeftover = FindAnyObjectByType<MainManager>().GetComponent<AudioSource>().time;
         GlobalClass.ReloadLevel();
     }
 }

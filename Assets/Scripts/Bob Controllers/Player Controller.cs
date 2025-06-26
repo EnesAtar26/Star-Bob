@@ -134,6 +134,7 @@ public class PlayerController : MonoBehaviour
         //Restart
         if (Input.GetKey(KeyCode.R))
         {
+            GlobalClass.MusicLeftover = FindAnyObjectByType<MainManager>().GetComponent<AudioSource>().time;
             GlobalClass.ReloadLevel();
         }
     }
@@ -282,10 +283,12 @@ public class PlayerController : MonoBehaviour
         {
             case PickableType.ConeIceCream:
                 IceCream++;
+                GlobalClass.Score += 100;
                 break;
 
             case PickableType.Donut:
                 BobImprove(BobImprovements.Armor);
+                GlobalClass.Score += 1000;
                 break;
 
             case PickableType.Cupcake:
@@ -293,16 +296,19 @@ public class PlayerController : MonoBehaviour
                 isDeadly = true;
                 if (invicibleEffect == null)
                     invicibleEffect = Instantiate(mainManager.Invicible, transform);
+                GlobalClass.Score += 1000;
                 break;
 
             case PickableType.BowlIceCream:
                 BobImprove(BobImprovements.IceCream);
+                GlobalClass.Score += 1000;
                 break;
 
             case PickableType.Other:
                 Inventory.Add(item.Data());
                 break;
         }
+        meshController.audioSource.PlayOneShot(mainManager.Pickup);
         Destroy(item.DestroyRoot);
     }
 
@@ -348,6 +354,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                meshController.audioSource.PlayOneShot(mainManager.Death);
                 Destroy(gameObject);
             }
         }
@@ -374,12 +381,16 @@ public class PlayerController : MonoBehaviour
                         BobHit(collision.transform);
                         BobDeimprove();
                     }
-                    else
+                    else 
+                    {
+                        meshController.audioSource.PlayOneShot(mainManager.Death);
                         Destroy(gameObject);
+                    }
                 }
                 break;
 
             case "Force Killer":
+                meshController.audioSource.PlayOneShot(mainManager.Death);
                 Destroy(gameObject);
                 break;
 
@@ -393,6 +404,7 @@ public class PlayerController : MonoBehaviour
                 if (pusher.x) v.x = pusher.Power.x;
                 if (pusher.y) v.y = pusher.Power.y;
                 rb.linearVelocity = v;
+                meshController.audioSource.PlayOneShot(mainManager.Tramboline);
                 break;
 
             case "Pickable":
